@@ -24,7 +24,8 @@ public class ChromeDriverAddHotelTest {
 //Setting system properties of ChromeDriver
         System.setProperty("webdriver.chrome.driver", "C://Users//Sarvanoski//Downloads//chromedriver-win64//chromedriver-win64//chromedriver.exe");
 
-//Creating an object of ChromeDriver
+//Creating an object of ChromeDriver - enabling automated testing, disabling popup banners, and
+//turning off the Save Username and Password popup
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("useAutomationExtension", false);
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));

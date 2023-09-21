@@ -4,30 +4,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.TimeUnit;
 
 public class AddHotel {
 
-        public static void main(String[] args) {
 
+        public static void main(String[] args) {
+//Initializing driver
             WebDriver unitDriver = new HtmlUnitDriver();
 
             unitDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+//Launching URL
             String appUrl = "http://localhost:8080/login";
             unitDriver.get(appUrl);
 
-            //Testing login before going on to 'add hotel' action
+//Testing login before going on to 'add hotel' action
+//Entering parameters for login
             WebElement usernameInput = unitDriver.findElement(By.id("username"));
             WebElement passwordInput = unitDriver.findElement(By.id("password"));
             usernameInput.sendKeys("admin");
             passwordInput.sendKeys("admin");
-
+//Clicking button to complete login process
             WebElement loginButton = unitDriver.findElement(By.id("submit"));
             loginButton.click();
 
@@ -35,16 +32,17 @@ public class AddHotel {
 
             String expectedTitle = "AmazeStay";
             String actualTitle = unitDriver.getTitle();
-
+//If the adequate page is not loaded, the login has failed
             if (!actualTitle.equals(expectedTitle)) {
                 throw new AssertionError("Page title mismatch. Expected: " + expectedTitle + ", Actual: " + actualTitle);
             }
 
             System.out.println("Title of the page is -> " + actualTitle);
-
+//Testing the add hotel action
+//Finding the button on the homepage
             WebElement add_hotel_button = unitDriver.findElement(By.id("add-hotel"));
             add_hotel_button.click();
-
+//Entering the information in the form
             WebElement hotel_name_input = unitDriver.findElement(By.id("name"));
             hotel_name_input.sendKeys("Hotel Russia");
 
@@ -74,12 +72,12 @@ public class AddHotel {
 
             WebElement booking_link_input = unitDriver.findElement(By.id("bookingLink"));
             booking_link_input.sendKeys("https://www.booking.com/hotel/mk/russia.en-gb.html?aid=356980&label=gog235jc-1DCAsokwFCBnJ1c3NpYUgzWANokwGIAQGYAQm4ARfIAQzYAQPoAQGIAgGoAgO4AoGWh6gGwAIB0gIkNjQxODcwOWYtMGY1MS00ZGY2LWI5NjQtZmY4YWNjMTIyYTBh2AIE4AIB&sid=04425f807bde8c7e47274532cb85e166&dist=0&keep_landing=1&sb_price_type=total&type=total&");
-
+//Submitting the form
             WebElement submit_button = unitDriver.findElement(By.id("submit"));
             submit_button.click();
-
+//Locating the image of the newly added hotel on the homepage
             WebElement added_hotel_image = unitDriver.findElement(By.xpath("/html/body/section/div/section/div[12]/div/img"));
-
+//Checking whether the found element matches the one we are looking for
             if(added_hotel_image.isDisplayed())
                 System.out.println("The hotel has been Added to the list!");
             else
